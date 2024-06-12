@@ -1,20 +1,19 @@
 import React from "react";
+import { useState } from "react";
 import { Button, Chip } from "@nextui-org/react";
 import { Tabs, Tab, Link } from "@nextui-org/react";
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/react";
+import { Card, CardBody } from "@nextui-org/react";
 import Movies from "./Movies";
 import TVShows from './TVShows.jsx';
 import logoTMDB from './TMDB-logo.svg';
 import { GitHubIcon } from '../../assets/svg-jsx/github-icon.jsx';
-import MoviesSnippet from './MoviesSnippet.jsx';
-import TVShowsSnippet from './TVShowsSnippet.jsx';
-import SearchInputSnippet from './SearchInputSnippet.jsx';
-import PaginationComponentSnippet from './PaginationComponentSnippet.jsx';
 
 export default function MainContainer() {
+    const [selected, setSelected] = useState(sessionStorage.getItem('movieAndTVShowSearchWebApp_selectedTab') || "movies");
+
     return (
         <div id="main-container">
-            <div className='flex flex-wrap justify-center py-20 sm2:py-16 sm:py-14 xs:py-12 xxs:py-10 px-6 max-w-5xl mx-auto'>
+            <div className='flex flex-col items-center justify-center py-20 sm2:py-16 sm:py-14 xs:py-12 xxs:py-10 px-6 max-w-5xl mx-auto'>
                 <h1 className="font-semibold text-xl text-center tracking-[-0.25px] mb-5 xs:mb-3 w-full xs:w-[305px]">Movie and TV Show Search Web App</h1>
 
                 <div className="flex flex-wrap justify-center mb-20 sm2:mb-16 sm:mb-14 xs:mb-12 xxs:mb-12 w-[976px] md:w-[720px] sm2:w-full sm_previous:w-[592px] sm:w-full xs:max-w-full xs:w-full xxs:w-full">
@@ -25,6 +24,11 @@ export default function MainContainer() {
                             base: 'mb-3.5 xs:mb-1 justify-center',
                             tabList: 'w-[320px]',
                             panel: 'pb-0'
+                        }}
+                        selectedKey={selected}
+                        onSelectionChange={(key) => {
+                            setSelected(key);
+                            sessionStorage.setItem('movieAndTVShowSearchWebApp_selectedTab', key);
                         }}
                     >
                         <Tab
@@ -110,22 +114,6 @@ export default function MainContainer() {
                             </Chip>
                         </Link>
                     </div>
-                </div>
-                
-                <div className="w-full mb-10 xxs:mb-8">
-                    <MoviesSnippet />
-                </div>
-
-                <div className="w-full mb-10 xxs:mb-8">
-                    <TVShowsSnippet />
-                </div>
-
-                <div className="w-full mb-10 xxs:mb-8">
-                    <SearchInputSnippet />
-                </div>
-
-                <div className="w-full mb-20 sm2:mb-16 sm:mb-14 xs:mb-12 xxs:mb-10">
-                    <PaginationComponentSnippet />
                 </div>
 
                 <div className='flex flex-wrap justify-center'>
